@@ -1,0 +1,48 @@
+<div class="table-hover" style=" margin-left: 80px; margin-right: 80px;">
+    <!-- Default panel contents -->
+    <div class="panel-heading" style="text-align:center; font-size: 20px; font-weight: bold;">电话号码表</div>
+
+    <!-- Table -->
+    <table class="table table-bordered table-hover" style="text-align:center; font-size: 16px;" >
+        <th class="active" style="text-align:center; font-size: 16px; width: 5%">序号</th>
+        <th  style="text-align:center; font-size: 16px; width: 10%">部门</th>
+        <th  style="text-align:center; font-size: 16px; width: 10%">姓名</th>
+        <th  style="text-align:center; font-size: 16px; width: 10%">分机号</th>
+        <th  style="text-align:center; font-size: 16px; width: 25%">电话号</th>
+        <th  style="text-align:center; font-size: 16px; width: 10%">工位</th>
+        <th  style="text-align:center; font-size: 16px; width: 30%">邮箱</th>
+
+        {{#each info}}
+            <tr >
+                <td  class="active" ></td>
+                <td >{{department}}</td>
+                <td >{{username}}</td>
+                <td>{{extension}}</td>
+                <td>{{telephone}}</td>
+                <td>{{pew}}</td>
+                <td>{{email}}</td>
+            </tr >
+        {{/each}}
+    </table>
+
+
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">上一页</span>
+            </a>
+        </li>
+        <li><a href="#">{{counts.counts}}</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">下一页</span>
+            </a>
+        </li>
+    </ul>
+</nav>

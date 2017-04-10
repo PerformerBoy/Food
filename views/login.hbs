@@ -1,0 +1,141 @@
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+<style>
+    body {
+        background-color: #ccebf7;
+    }
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="row myCenter">
+        <div class="col-xs-6 col-md-4 col-center-block">
+            <img style="margin-top: 50%;margin-bottom: 30px" src="./images/logo-zw.png">
+            <form class="form-signin" method="post"  action="/" onsubmit=" return validate_form(this)">
+                <label for="username" class="sr-only">分机号</label>
+                <input type="number" name="extension" id="login_extension" class="form-control  input-lg" placeholder="分机号" value="{{extension}}">
+                <div style="margin: 20px;">
+                    <button style="margin: 10px" type="button" class="btn btn-warning col-xs-4 col-md-5" data-toggle="modal" data-target="#myModal_login">注册 </button>
+                    <button style="margin: 10px" class="btn btn-success col-xs-4 col-md-5" type="submit">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal_login" tabindex="-1" role="dialog" aria-labelledby="login_myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="login_myModalLabel">注册</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form_login">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">分机号</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="extension" placeholder="分机号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="username" placeholder="姓名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">部门</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="department">
+                                <option ></option>
+                                <option >领导</option>
+                                <option >综合部</option>
+                                <option >技术部</option>
+                                <option >纸书融合部</option>
+                                <option >服务拓展部</option>
+                                <option >运营部</option>
+                                <option >其他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">工位</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pew" placeholder="工位">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">手机</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="telephone" placeholder="手机">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="email" placeholder="邮箱">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="btn_save()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var mm='{{{aa}}}';
+    console.log(mm);
+    if(mm=='1'){
+        alert('用户名不存在！！')
+    }
+    function validate_email(field,alerttxt){
+        with (field)
+        {
+            if (!/\d{4}$/.test(value))
+            {alert(alerttxt);return false}
+            else {return true}
+        }
+    }
+    function validate_form(thisform){
+        with (thisform)
+        {
+            if (validate_email(extension,"请输入正确的分机号")==false)
+            {email.focus();return false}
+        }
+    }
+    function btn_save() {
+        var department=$("#department").find("option:selected").text();
+        var extension=$("#extension").val();
+        var username=$("#username").val();
+        var email=$("#email").val();
+        var telephone=$("#telephone").val();
+        var pew=$("#pew").val();
+        var pro={extension:extension,department:department,username:username,email:email,telephone:telephone,pew:pew}
+        $.post('/regist',{pro},function (data) {
+           // $('#login_myModalLabel').append("<div style='' class='alert alert-success col-xs-6 col-md-4' role='alert'>注册成功</div>" );
+            location.href='index';
+
+
+
+        });
+    }
+</script>
+
+
+
+
+
+
+
+

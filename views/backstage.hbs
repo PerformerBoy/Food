@@ -1,0 +1,155 @@
+<style type="text/css">
+    #sp{
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+    .account-title{
+        border-bottom: 2px solid;
+        height: 40px;
+        line-height:40px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .right{
+        float:right;
+    }
+    .left{
+        float:left;
+    }
+    a{text-decoration:none;}a:link,a:visited{text-decoration: none;}
+    .f-btn-fhby{background-color: #ffffff;border: 1px solid #009c84;height: 30px;line-height: 30px;color: #009c84;font-size: 14px;display: block;width: 85px;text-align: center;border-radius: 4px;cursor: pointer;margin-left: 20px;}
+</style>
+
+<div  style="padding: 0 35px 25px 25px;">
+    <!-- Default panel contents -->
+    <h2 class="account-title">
+        <span class="left c3">项目后台列表</span>
+        <button type="button" class="f-btn-fhby right" data-toggle="modal" data-target="#myModal">添加
+        </button>
+    </h2>
+<div class="table-responsive" style="overflow:hidden">
+        <table class="table table-bordered table-hover"   style="text-align:center;font-size: 16px;">
+            <th  class="active" style="text-align:center; font-size: 16px; width: 10%">项目名</th>
+            <th  class="active" style="text-align:center; font-size: 16px; width: 90%">
+                <div class="row">
+                    <div class="col-md-2" style="width: 40%">后台名称</div> <div class="col-md-1" style="width: 20%">地址</div><div class="col-md-2" style="width: 20%">项目经理</div><div class="col-md-2" style="width: 20%">分机号</div>
+                </div>
+            </th>
+            {{#each result}}
+                <tr>
+                    <td class="active" style="vertical-align:middle">{{projectname}}</td>
+                    <td style="padding: 0px;">
+                        <table class="table table-hover" style="margin: 0px;border: 0px">
+                            {{#each projectlists}}
+                                <tr style="border: 0px">
+                                    <td style="width: 40%">
+                                        <a href="http://{{prourl}}">{{extname}}</a>
+                                    </td>
+                                    <td style="width: 20%;text-align: left ;">
+                                        http://{{prourl}}
+                                    </td>
+                                    <td style="width: 20%">
+                                        {{promanger}}
+                                    </td>
+                                    <td style="width: 20%">
+                                        {{pmextension}}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </table>
+
+                    </td>
+                </tr>
+            {{/each}}
+
+    </table>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加项目后台</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">项目名称</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="pro_select">
+                                <option >我的收藏</option>
+                                <option >考试网</option>
+                                <option >临床知识库</option>
+                                <option >素材库</option>
+                                <option >增值服务</option>
+                                <option >慕课</option>
+                                <option >教育</option>
+                                <option >健康</option>
+                                <option >百科</option>
+                                <option >其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">后台名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pro_backname" placeholder="后台名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">项目链接</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pro_url" placeholder="项目链接">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">项目经理</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pro_pm" placeholder="项目经理">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">经理电话</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pro_phone" placeholder="经理电话">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" id="pro_sort" placeholder="排序">
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-4">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="pro_share">共享（否/是）</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="btn_save()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function btn_save() {
+       var pro_select=$("#pro_select").find("option:selected").text();
+       var pro_backname=$("#pro_backname").val();
+       var pro_url=$("#pro_url").val();
+       var pro_pm=$("#pro_pm").val();
+       var pro_phone=$("#pro_phone").val();
+       var pro_sort=$("#pro_sort").val();
+       var pro_share=$("#pro_share").is(':checked');
+       var pro={pro_select:pro_select,pro_backname:pro_backname,pro_url:pro_url,pro_pm:pro_pm,pro_phone:pro_phone,pro_sort:pro_sort,pro_share:pro_share};
+        $.post('backstage',{pro},function (data) {
+            window.location.reload();
+        });
+    }
+</script>
