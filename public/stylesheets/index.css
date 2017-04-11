@@ -49,7 +49,8 @@ address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
 .f-table-msg{position: absolute;z-index: 2;top: 34px;left:50%;margin-left: -120px; width: 280px;background: url(../images/bg-msg.png) no-repeat bottom;line-height: 55px;height: 46px;text-align: center;display: none;color: #666;}
 .data-list{margin: 1px; background-color: #7ed6b9;font-size: 16px;border-radius:7px 7px 7px 7px; text-align: center;}
 .data-list1{margin: 1px; background-color: #d64b4a;font-size: 16px;border-radius:7px 7px 7px 7px; text-align: center;}
-.choice-date{border: 2px solid #009c84;margin-top: 6px;height: 200px; margin: 1px; padding: 2px;overflow:auto;}
+.choice-date{border: 2px solid #009c84;margin-top: 6px;height: 100px; margin: 1px; padding: 2px;overflow:auto;}
 .select-date-list{margin-top: 10px;text-align: center;}
-.btn-select-data{width: 200px;height: 30px;background-color: #7ED6B9;margin-top: 5px;}
+.btn-select-data{border: 0px;width: 200px;height: 30px;margin-top: 5px; -webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px;color: #009c84
+}
 .select-list{margin-top: 30px;font-size: 16px}

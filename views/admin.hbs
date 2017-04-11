@@ -1,3 +1,51 @@
-<div>
-    admin
+<script type="text/javascript" src="/javascripts/xlsx.core.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/index.css">
+<!-- 账户主要表格 -->
+<div class="account-box">
+    <h2 class="account-title">
+        <span class="left c3">订餐列表</span>
+
+        <a href="" class="f-btn-fhby right">导 出</a>
+        <a href="" class="f-btn-fhby right">今 天</a>
+        <div class="clearfix right">
+            <div class="f-btn-jian left"><i class="glyphicon glyphicon-chevron-left"></i></div><div class="left f-riqi"><span class="f-year">2017</span>年<span class="f-month">1</span>月</div><div class="f-btn-jia left"><i class="glyphicon glyphicon-chevron-right"></i></div><!-- 一定不能换行-->
+        </div>
+    </h2>
+    <div class="row">
+        <div class="col-lg-5">
+            <table class="table table-bordered">
+                {{#each docs}}
+                    <tr>
+                        <td>
+                            {{extension}}
+                        </td>
+                        <td>
+                            {{inventory_docs.0.username}}
+                        </td>
+                        <td>
+                            {{inventory_docs.0.department}}
+                        </td>
+
+                    </tr>
+
+                {{/each}}
+            </table>
+         </div>
+
+    </div>
+
 </div>
+
+<script type="text/javascript">
+//    var wopts = { bookType:'xlsx', bookSST:false, type:'binary' };
+//    var wbout = XLSX.write(workbook,wopts);
+//    function s2ab(s) {
+//        var buf = new ArrayBuffer(s.length);
+//        var view = new Uint8Array(buf);
+//        for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+//        return buf;
+//    }
+//
+//    /* the saveAs call downloads a file on the local machine */
+//    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "test.xlsx");
+</script>

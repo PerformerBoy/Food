@@ -1,0 +1,20 @@
+ db.orderlists.aggregate([
+     {
+         $match: {orderdata:"2017/4/11"}
+     },
+
+      {
+        $lookup:
+          {
+            from: "users",
+            localField: "extension",
+            foreignField: "extension",
+            as: "inventory_docs",
+          }
+    },
+      {
+         $project: {_id:0,extension:1,orderdata:1,inventory_docs:1}
+
+    }
+
+])

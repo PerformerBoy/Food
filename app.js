@@ -32,6 +32,7 @@ var index = require('./routes/index');
 var userinfo = require('./routes/userinfo');
 var backstage=require('./routes/backstage');
 let admin=require('./routes/admin');
+let regist=require('./routes/regist');
 
 
 var app = express();
@@ -93,7 +94,7 @@ app.use('/index', index);
 app.use('/userinfo', userinfo);
 app.use('/backstage',backstage);
 app.use('/admin',admin);
-
+app.use('/regist',regist);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
