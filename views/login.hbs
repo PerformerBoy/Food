@@ -17,12 +17,12 @@
     <div class="row myCenter">
         <div class="col-xs-6 col-md-4 col-center-block">
             <img style="margin-top: 50%;margin-bottom: 30px" src="./images/logo-zw.png">
-            <form class="form-signin" method="post"  action="/" onsubmit=" return validate_form(this)">
+            <form class="form-signin">
                 <label for="username" class="sr-only">分机号</label>
                 <input type="number" name="extension" id="login_extension" class="form-control  input-lg" placeholder="分机号" value="{{extension}}">
                 <div style="margin: 20px;">
                     <button style="margin: 10px" type="button" class="btn btn-warning col-xs-4 col-md-5" data-toggle="modal" data-target="#myModal_login">注册 </button>
-                    <button style="margin: 10px" class="btn btn-success col-xs-4 col-md-5" type="submit">登录</button>
+                    <button style="margin: 10px" class="btn btn-success col-xs-4 col-md-5" onclick="login(this);return false">登录</button>
                 </div>
             </form>
         </div>
@@ -93,26 +93,48 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" id="msgModul" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="login_myModalLabel">提示</h5>
+            </div>
+            <div class="modal-header" id="msg">
+
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-    var mm='{{{aa}}}';
-    console.log(mm);
-    if(mm=='1'){
-        alert('用户名不存在！！')
+
+    function msg(value) {
+        $('#msg').html("<h5 class='modal-title'>"+value+"</h5>");
+        $('#msgModul').modal('show');
+        setTimeout(function () {
+            $('#msgModul').modal('hide')
+        },1000);
     }
-    function validate_email(field,alerttxt){
-        with (field)
-        {
-            if (!/\d{4}$/.test(value))
-            {alert(alerttxt);return false}
-            else {return true}
+    function login(_this) {
+         var ext=$('#login_extension').val();
+         console.log(ext);
+         console.log(/^\d{4}$/.test(ext));
+        if (/^\d{4}$/.test(ext)){
+            $.post('/',{
+                extension:ext,
+            },function (data) {
+                if(data.status){
+                    window.location.href = '/index';
+                }else{
+                    msg(data.msg);
+                }
+
+
+            })
+        }else{
+            msg('请输入正确的分机号') ;
         }
-    }
-    function validate_form(thisform){
-        with (thisform)
-        {
-            if (validate_email(extension,"请输入正确的分机号")==false)
-            {email.focus();return false}
-        }
+
     }
     function btn_save() {
         var department=$("#department").find("option:selected").text();
@@ -125,9 +147,6 @@
         $.post('/regist',{pro},function (data) {
            // $('#login_myModalLabel').append("<div style='' class='alert alert-success col-xs-6 col-md-4' role='alert'>注册成功</div>" );
             location.href='index';
-
-
-
         });
     }
 </script>

@@ -26,14 +26,14 @@ mongoose.connection.on('error', function (err) {
     console.log('Connection opened');
 });
 
-
+let verifyUser=require('./middlewares/user_verify');
 var login = require('./routes/login');
+let logout=require('./routes/logout');
 var index = require('./routes/index');
 var userinfo = require('./routes/userinfo');
 var backstage=require('./routes/backstage');
 let admin=require('./routes/admin');
 let regist=require('./routes/regist');
-
 
 var app = express();
 
@@ -76,25 +76,13 @@ app.use(session({
     saveUninitialized: true
 
 }));
-app.use(function (req, res, next) {
-    let extension = req.session.extension;
-    let username = req.session.username;
-    if (extension) {
-        res.locals.extension = extension;
-        res.locals.username = username;
-    } else {
-        console.log('sessiong过期');
-
-    }
-    next();
-});
-
-app.use('/', login);
-app.use('/index', index);
-app.use('/userinfo', userinfo);
-app.use('/backstage',backstage);
-app.use('/admin',admin);
-app.use('/regist',regist);
+app.use('/',login);
+app.use('/logout',logout);
+app.use('/index', verifyUser.loginYes,index);
+app.use('/userinfo',verifyUser.loginYes, userinfo);
+app.use('/backstage',verifyUser.loginYes,backstage);
+app.use('/admin',verifyUser.loginYes,admin);
+app.use('/regist',verifyUser.loginYes,regist);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

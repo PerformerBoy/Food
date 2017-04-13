@@ -18,6 +18,7 @@ router.post('/',function (req,res,next) {
             req.session.extension=result.extension;
             req.session.username=result.username;
             console.log( req.session.username+"--------"+req.session.extension);
+            res.redirect('index');
          }
      );
 });

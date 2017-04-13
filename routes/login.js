@@ -14,17 +14,22 @@ router.post('/',function (req,res,next) {
         extension:parseInt(req.body.extension),
     };
     console.log(postdata);
+    let message={
+        status:false,
+        msg:''
+    }
     apiuser.findOne(postdata).then(
         result=>{
             if(result==null){
-                console.log('没有用户');
-                let aa=1;
-                res.render('login', { title: '登陆' ,layout:null,aa});
+                message.msg='没有用户';
+                message.status=false;
+                res.send(message);
             }else{
                 req.session.extension=result.extension;
                 req.session.username=result.username;
                 console.log( req.session.username+"--------"+req.session.extension);
-                res.redirect(303,'/index');
+                message.status=true;
+                res.send(message);
             }
         }
     );

@@ -26,7 +26,7 @@ router.get('/',function (req,res,next) {
 
         ],function (err,docs) {
             console.log(docs);
-             XLSX.writeFile(docs, 'out.xlsx');
+           //  XLSX.writeFile(docs, 'out.xlsx');
             res.render('admin',{title:'管理后台',docs});
         }
     );
