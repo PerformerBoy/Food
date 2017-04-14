@@ -6,7 +6,6 @@ var router = express.Router();
 var apiuser=require('../lib/api_user');
 
 router.get('/', function(req, res, next) {
-
     res.render('login', { title: '登陆' ,layout:null});
 });
 router.post('/',function (req,res,next) {

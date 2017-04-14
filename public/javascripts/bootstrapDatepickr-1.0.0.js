@@ -3,7 +3,7 @@
 	
 	var pluginName = 'bootstrapDatepickr';
     var defaults = {
-		date_format: "d/m/Y"
+		date_format: "Y/n/d"
 	};
 	
 	// Plugin 构造函数

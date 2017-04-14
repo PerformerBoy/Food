@@ -1,19 +1,21 @@
 <script type="text/javascript" src="/javascripts/xlsx.core.min.js"></script>
 <link rel="stylesheet" href="/stylesheets/index.css">
+<link rel="stylesheet" href="/stylesheets/bootstrapDatepickr-1.0.0.css">
+<script type="text/javascript" src="/javascripts/FileSaver.js"></script>
+<script type="text/javascript"src="/javascripts/bootstrapDatepickr-1.0.0.js"></script>
 <!-- 账户主要表格 -->
 <div class="account-box">
     <h2 class="account-title">
         <span class="left c3">订餐列表</span>
-
-        <a href="" class="f-btn-fhby right">导 出</a>
-        <a href="" class="f-btn-fhby right">今 天</a>
-        <div class="clearfix right">
-            <div class="f-btn-jian left"><i class="glyphicon glyphicon-chevron-left"></i></div><div class="left f-riqi"><span class="f-year">2017</span>年<span class="f-month">1</span>月</div><div class="f-btn-jia left"><i class="glyphicon glyphicon-chevron-right"></i></div><!-- 一定不能换行-->
-        </div>
+        <p class="f-btn-fhby right" onclick="doit('xlsx');" >导 出</p>
+        <p class="f-btn-fhby right" onclick="selectdate('xlsx');" >查 询</p>
+        <input type="text" id="calendar" class="form-control clearfix right" style="width: 110px;display: inline; margin-top: 10px;
+    margin-left: 10px;padding: 3px 10px;height: 30px;">
+        <a href="" class="f-btn-fhby right" onclick="todayss()">今 天</a>
     </h2>
     <div class="row">
-        <div class="col-lg-5">
-            <table class="table table-bordered">
+        <div id="addtable">
+            <table class="table table-bordered" id="table">
                 {{#each docs}}
                     <tr>
                         <td>
@@ -25,27 +27,70 @@
                         <td>
                             {{inventory_docs.0.department}}
                         </td>
-
                     </tr>
-
                 {{/each}}
             </table>
          </div>
-
     </div>
-
 </div>
+<script>
+    function todayss() {
+        var ss=new Date();
+        var str='';
+        if (ss.getDate()<10){
+            str=ss.getFullYear()+'/'+(ss.getMonth()+1)+'/0'+ss.getDate();
+        }else{
+            str=ss.getFullYear()+'/'+(ss.getMonth()+1)+'/'+ss.getDate();
+        }
+        $("#calendar").val(str);
+    }
+    $(function($) {
+        todayss();
+        $("#calendar").bootstrapDatepickr();
+    });
+    function selectdate() {
+        var jj=$('#calendar').val()
+        console.log(jj)
+        $.post('/admin',{ddd:jj},function (result) {
+            console.log(result);
+            var jsonObj = JSON.parse(result);
+            $('#table').remove();
+            if(jsonObj.length>0){
+                var addtbale=$('#addtable');
+                var strr="<table id='table' class='table table-bordered' >";
+                for(var i=0;i<jsonObj.length;i++){
+                    strr=strr+ '<tr>'
+                            + '<td>'+jsonObj[i].extension+'</td>'
+                            + '<td>'+jsonObj[i].inventory_docs[0].username+'</td>'
+                            + '<td>'+jsonObj[i].inventory_docs[0].department+'</td>'
+                            +'</tr>'
+                }
+                strr=strr+'</table>';
+                addtbale.append(strr);
+            }
 
-<script type="text/javascript">
-//    var wopts = { bookType:'xlsx', bookSST:false, type:'binary' };
-//    var wbout = XLSX.write(workbook,wopts);
-//    function s2ab(s) {
-//        var buf = new ArrayBuffer(s.length);
-//        var view = new Uint8Array(buf);
-//        for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-//        return buf;
-//    }
-//
-//    /* the saveAs call downloads a file on the local machine */
-//    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "test.xlsx");
+        })
+    }
+    function doit(type, fn) { return export_table_to_excel('table', type || 'xlsx', fn); }
+    function s2ab(s) {
+        if(typeof ArrayBuffer !== 'undefined') {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        } else {
+            var buf = new Array(s.length);
+            for (var i=0; i!=s.length; ++i) buf[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+    }
+    function export_table_to_excel(id, type, fn) {
+        var wb = XLSX.utils.table_to_book(document.getElementById(id), {sheet:"Sheet JS"});
+        var wbout = XLSX.write(wb, {bookType:type, bookSST:true, type: 'binary'});
+        var fname = fn || 'test.' + type;
+        try {
+            saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), fname);
+        } catch(e) { if(typeof console != 'undefined') console.log(e, wbout); }
+        return wbout;
+    }
 </script>
