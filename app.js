@@ -82,7 +82,7 @@ app.use('/index', verifyUser.loginYes,index);
 app.use('/userinfo',verifyUser.loginYes, userinfo);
 app.use('/backstage',verifyUser.loginYes,backstage);
 app.use('/admin',verifyUser.loginYes,admin);
-app.use('/regist',verifyUser.loginYes,regist);
+app.use('/regist',regist);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

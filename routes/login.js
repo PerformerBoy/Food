@@ -6,9 +6,19 @@ var router = express.Router();
 var apiuser=require('../lib/api_user');
 
 router.get('/', function(req, res, next) {
-    res.render('login', { title: '登陆' ,layout:null});
+    let signature=req.query.signature;
+    let timestamp=req.query.timestamp;
+    let nonce=req.query.nonce;
+    let echostr=req.query.echostr;
+    let token='food';
+    console.log('signature:'+signature);
+    console.log('timestamp:'+timestamp);
+    console.log('nonce:'+nonce);
+    console.log('echostr:'+echostr);
+    res.render('login', { title: '登陆' ,echostr,layout:null});
 });
 router.post('/',function (req,res,next) {
+
      let postdata={
         extension:parseInt(req.body.extension),
     };

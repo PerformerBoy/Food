@@ -43,10 +43,10 @@
                             {{#each projectlists}}
                                 <tr style="border: 0px">
                                     <td style="width: 40%">
-                                        <a href="http://{{prourl}}">{{extname}}</a>
+                                        <a href="{{prourl}}">{{extname}}</a>
                                     </td>
                                     <td style="width: 20%;text-align: left ;">
-                                        http://{{prourl}}
+                                        {{prourl}}
                                     </td>
                                     <td style="width: 20%">
                                         {{promanger}}
@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">项目链接</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="pro_url" placeholder="项目链接">
+                            <input type="text" class="form-control" id="pro_url" placeholder="项目链接" value="http://">
                         </div>
                     </div>
                     <div class="form-group">

@@ -146,7 +146,8 @@
         var pro={extension:extension,department:department,username:username,email:email,telephone:telephone,pew:pew}
         $.post('/regist',{pro},function (data) {
            // $('#login_myModalLabel').append("<div style='' class='alert alert-success col-xs-6 col-md-4' role='alert'>注册成功</div>" );
-            location.href='index';
+         location.href='index';
+            //console.log(data);
         });
     }
 </script>

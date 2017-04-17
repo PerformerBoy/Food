@@ -4,10 +4,6 @@
 var express = require('express');
 var router = express.Router();
 var userapi=require('../lib/api_user');
-
-router.get('/', function(req, res, next) {
-    res.render('regist', { title: '注册' });
-});
 router.post('/',function (req,res,next) {
      let rr=req.body;
      console.log(rr);
